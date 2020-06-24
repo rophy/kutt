@@ -13,15 +13,16 @@ interface User {
   change_email_token?: string;
   cooldowns?: string[];
   created_at: string;
-  email: string;
+  email?: string;
   id: number;
-  password: string;
+  password?: string;
   reset_password_expires?: string;
   reset_password_token?: string;
   updated_at: string;
   verification_expires?: string;
   verification_token?: string;
   verified?: boolean;
+  sub?: string;
 }
 
 interface UserJoined extends User {

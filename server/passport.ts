@@ -15,7 +15,10 @@ const jwtOptions = {
 passport.use(
   new JwtStrategy(jwtOptions, async (payload, done) => {
     try {
-      const user = await query.user.find({ email: payload.sub });
+      const user = await query.user.find({
+        email: payload.sub,
+        sub: payload.oidc_sub
+      });
       if (!user) return done(null, false);
       return done(null, user);
     } catch (err) {
@@ -64,3 +67,5 @@ passport.use(
     }
   })
 );
+
+import "./passport-oidc";

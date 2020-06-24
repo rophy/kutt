@@ -17,6 +17,8 @@ import { stream } from "./config/winston";
 import "./cron";
 import "./passport";
 
+import session from "express-session";
+
 const port = env.PORT;
 const app = nextApp({ dir: "./client", dev: env.isDev });
 const handle = app.getRequestHandler();
@@ -34,7 +36,17 @@ app.prepare().then(async () => {
   server.use(cookieParser());
   server.use(express.json());
   server.use(express.urlencoded({ extended: true }));
+  const store = new session.MemoryStore();
+  server.use(
+    session({
+      secret: "keyboard cat2",
+      store,
+      resave: false,
+      saveUninitialized: false
+    })
+  );
   server.use(passport.initialize());
+  server.use(passport.session());
   server.use(express.static("static"));
   server.use(helpers.ip);
 

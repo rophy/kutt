@@ -14,7 +14,7 @@ import query from "../queries";
 import env from "../env";
 
 const authenticate = (
-  type: "jwt" | "local" | "localapikey",
+  type: "jwt" | "local" | "localapikey" | "oidc",
   error: string,
   isStrict = true
 ) =>
@@ -28,7 +28,7 @@ const authenticate = (
         throw new CustomError(error, 401);
       }
 
-      if (user && isStrict && !user.verified) {
+      if (user && isStrict && user.email && !user.verified) {
         throw new CustomError(
           "Your email address is not verified. " +
             "Click on signup to get the verification link again.",
@@ -59,6 +59,8 @@ export const apikey = authenticate(
   "API key is not correct.",
   false
 );
+export const oidc = authenticate("oidc", "Unauthorized.", false);
+export const oidcCallback = authenticate("oidc", "Unauthorized.", true);
 
 export const cooldown: Handler = async (req, res, next) => {
   if (env.DISALLOW_ANONYMOUS_LINKS) return next();
@@ -120,7 +122,8 @@ export const signup: Handler = async (req, res) => {
     req.user
   );
 
-  await mail.verification(user);
+  console.log("RE-ACTIVATE MAIL VERIFICATION : ", user.verification_token);
+  // await mail.verification(user);
 
   return res.status(201).send({ message: "Verification email has been sent." });
 };

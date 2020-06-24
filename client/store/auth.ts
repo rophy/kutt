@@ -10,6 +10,7 @@ import { getAxiosConfig } from "../utils";
 export interface Auth {
   domain?: string;
   email: string;
+  sub?: string;
   isAdmin: boolean;
   isAuthenticated: Computed<Auth, boolean>;
   add: Action<Auth, TokenPayload>;
@@ -21,18 +22,21 @@ export interface Auth {
 export const auth: Auth = {
   domain: null,
   email: null,
+  sub: null,
   isAdmin: false,
-  isAuthenticated: computed(s => !!s.email),
+  isAuthenticated: computed(s => !!s.email || !!s.sub),
   add: action((state, payload) => {
     state.domain = payload.domain;
     state.email = payload.sub;
     state.isAdmin = payload.admin;
+    state.sub = payload.oidc_sub;
   }),
   logout: action(state => {
     cookie.remove("token");
     state.domain = null;
     state.email = null;
     state.isAdmin = false;
+    state.sub = null;
   }),
   login: thunk(async (actions, payload) => {
     const res = await axios.post(APIv2.AuthLogin, payload);

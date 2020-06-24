@@ -5,6 +5,10 @@ export async function createUserTable(knex: Knex) {
   if (!hasTable) {
     await knex.schema.createTable("users", table => {
       table.increments("id").primary();
+      table
+        .string("sub")
+        .nullable()
+        .unique();
       table.string("apikey");
       table
         .boolean("banned")
@@ -18,8 +22,8 @@ export async function createUserTable(knex: Knex) {
       table
         .string("email")
         .unique()
-        .notNullable();
-      table.string("password").notNullable();
+        .nullable();
+      table.string("password").nullable();
       table.dateTime("reset_password_expires");
       table.string("reset_password_token");
       table.dateTime("change_email_expires");

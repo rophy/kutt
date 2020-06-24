@@ -38,7 +38,15 @@ const env = cleanEnv(process.env, {
   MAIL_FROM: str({ default: "", example: "Kutt <support@kutt.it>" }),
   MAIL_PASSWORD: str(),
   REPORT_EMAIL: str({ default: "" }),
-  CONTACT_EMAIL: str({ default: "" })
+  CONTACT_EMAIL: str({ default: "" }),
+  RAVEN_DSN: str({ default: "" }),
+  APP_URL: str({ default: "http://localhost:3000" }),
+  OIDC_CONNEXION_ENABLED: bool({ default: false }),
+  OIDC_DISCOVERY_URL: str(),
+  OIDC_CLIENT_ID: str(),
+  OIDC_CLIENT_SECRET: str(),
+  OIDC_BUTTON_LABEL: str(),
+  OIDC_BUTTON_LOGO_URL: str()
 });
 
 export default env;

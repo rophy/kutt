@@ -12,9 +12,18 @@ import Divider from "../components/Divider";
 import { Col } from "../components/Layout";
 import Footer from "../components/Footer";
 import { useStoreState } from "../store";
+import { Flex } from "reflexbox/styled-components";
 
 const SettingsPage: NextPage = () => {
   const email = useStoreState(s => s.auth.email);
+  const sub = useStoreState(s => s.auth.sub);
+  
+  const changePassword = !sub && (
+    <Flex>
+      <Divider mt={4} mb={48} />
+      <SettingsPassword />
+    </Flex>
+  );
 
   return (
     <AppWrapper>
@@ -28,10 +37,7 @@ const SettingsPage: NextPage = () => {
         </H1>
         <Divider mt={4} mb={48} />
         <SettingsDomain />
-        <Divider mt={4} mb={48} />
-        <SettingsApi />
-        <Divider mt={4} mb={48} />
-        <SettingsPassword />
+        { changePassword }
         <Divider mt={4} mb={48} />
         <SettingsChangeEmail />
         <Divider mt={4} mb={48} />

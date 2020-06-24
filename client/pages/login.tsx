@@ -16,6 +16,11 @@ import { Button } from "../components/Button";
 import Text, { H2 } from "../components/Text";
 import ALink from "../components/ALink";
 import Icon from "../components/Icon";
+<<<<<<< HEAD
+=======
+import { APIv2 } from "../consts";
+import Divider from "../components/Divider";
+>>>>>>> c76d3f9 (feat: add unikname oidc login method)
 
 const LoginForm = styled(Flex).attrs({
   as: "form",
@@ -28,6 +33,19 @@ const Email = styled.span`
   font-weight: normal;
   color: #512da8;
   border-bottom: 1px dotted #999;
+`;
+
+const OidcLogin = styled(Flex).attrs({
+  as: "div",
+  flexDirection: "column"
+})`
+  animation: ${fadeIn} 0.8s ease-out;
+`;
+
+const OidcButtonLogo = styled.img`
+  width: 20px;
+  height: auto;
+  margin-right: 1em;
 `;
 
 const LoginPage = () => {
@@ -103,49 +121,73 @@ const LoginPage = () => {
             <Email>{formState.values.email}</Email>.
           </H2>
         ) : (
-          <LoginForm id="login-form" onSubmit={onSubmit("login")}>
-            <Text {...label("email")} as="label" mb={2} bold>
-              Email address:
-            </Text>
-            <TextInput
-              {...email("email")}
-              placeholder="Email address..."
-              height={[56, 64, 72]}
-              fontSize={[15, 16]}
-              px={[4, 40]}
-              mb={[24, 4]}
-              width={[300, 400]}
-              maxWidth="100%"
-              autoFocus
-            />
-            <Text {...label("password")} as="label" mb={2} bold>
-              Password{!DISALLOW_REGISTRATION ? " (min chars: 8)" : ""}:
-            </Text>
-            <TextInput
-              {...password("password")}
-              placeholder="Password..."
-              px={[4, 40]}
-              height={[56, 64, 72]}
-              fontSize={[15, 16]}
-              width={[300, 400]}
-              maxWidth="100%"
-              mb={[24, 4]}
-            />
-            <Flex justifyContent="center">
-              <Button
-                flex="1 1 auto"
-                mr={!DISALLOW_REGISTRATION ? ["8px", 16] : 0}
-                height={[44, 56]}
-                onClick={onSubmit("login")}
-              >
-                <Icon
-                  name={loading.login ? "spinner" : "login"}
-                  stroke="white"
-                  mr={2}
-                />
-                Log in
-              </Button>
-              {!DISALLOW_REGISTRATION && (
+          <Flex flexDirection="column" justifyContent="center">
+            <OidcLogin>        
+              <ALink href={APIv2.AuthLoginOidc} title="login/signup oidc" forButton>
+                <Button
+                  flex="1 1 auto"
+                  mb={4}
+                  height={[44, 56]}
+                  width="100%"
+                  >
+                  { process.env.OIDC_BUTTON_LOGO_URL ? (
+                    <OidcButtonLogo src={process.env.OIDC_BUTTON_LOGO_URL} />
+                  ) : (
+                    <Icon
+                      name="login"
+                      stroke="white"
+                      mr={2}
+                      />
+                  )}
+                  { process.env.OIDC_BUTTON_LABEL }
+                </Button>
+              </ALink>
+            </OidcLogin>
+
+            <Divider mt={4} mb={48} />
+
+            <LoginForm id="login-form" onSubmit={onSubmit("login")}>
+              <Text {...label("email")} as="label" mb={2} bold>
+                Email address:
+              </Text>
+              <TextInput
+                {...email("email")}
+                placeholder="Email address..."
+                height={[56, 64, 72]}
+                fontSize={[15, 16]}
+                px={[4, 40]}
+                mb={[24, 4]}
+                width={[300, 400]}
+                maxWidth="100%"
+                autoFocus
+              />
+              <Text {...label("password")} as="label" mb={2} bold>
+                Password (min chars: 8):
+              </Text>
+              <TextInput
+                {...password("password")}
+                placeholder="Password..."
+                px={[4, 40]}
+                height={[56, 64, 72]}
+                fontSize={[15, 16]}
+                width={[300, 400]}
+                maxWidth="100%"
+                mb={[24, 4]}
+              />
+              <Flex justifyContent="center">
+                <Button
+                  flex="1 1 auto"
+                  mr={["8px", 16]}
+                  height={[44, 56]}
+                  onClick={onSubmit("login")}
+                >
+                  <Icon
+                    name={loading.login ? "spinner" : "login"}
+                    stroke="white"
+                    mr={2}
+                  />
+                  Log in
+                </Button>
                 <Button
                   flex="1 1 auto"
                   ml={["8px", 16]}
@@ -160,6 +202,7 @@ const LoginPage = () => {
                   />
                   Sign up
                 </Button>
+<<<<<<< HEAD
               )}
             </Flex>
             <ALink
@@ -176,6 +219,25 @@ const LoginPage = () => {
               {error}
             </Text>
           </LoginForm>
+=======
+              </Flex>
+              <Link href="/reset-password">
+                <ALink
+                  href="/reset-password"
+                  title="Forget password"
+                  fontSize={14}
+                  alignSelf="flex-start"
+                  my={16}
+                >
+                  Forgot your password?
+                </ALink>
+              </Link>
+              <Text color="red" mt={1} normal>
+                {error}
+              </Text>
+            </LoginForm>
+          </Flex>
+>>>>>>> c76d3f9 (feat: add unikname oidc login method)
         )}
       </ColCenterV>
     </AppWrapper>

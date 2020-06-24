@@ -32,6 +32,7 @@ export const signToken = (user: UserJoined) =>
     {
       iss: "ApiAuth",
       sub: user.email,
+      oidc_sub: user.sub,
       domain: user.domain || "",
       admin: isAdmin(user.email),
       iat: parseInt((new Date().getTime() / 1000).toFixed(0)),
