@@ -25,6 +25,8 @@ services:
     image: redis:6.0-alpine
     volumes:
       - redis_data:/data
+    ports:
+      - 6379:6379
 
   postgres:
     image: postgres:12-alpine
@@ -32,12 +34,15 @@ services:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: pass
       POSTGRES_DB: kutt
+    ports:
+      - 5432:5432
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
   mailhog:
     image: mailhog/mailhog:v1.0.1
     ports:
+      - 1025:1025
       - 8025:8025
 
 volumes:
