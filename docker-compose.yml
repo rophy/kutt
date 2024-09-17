@@ -4,6 +4,7 @@ services:
     depends_on:
       - postgres
       - redis
+      - mailhog
     command: ["./wait-for-it.sh", "postgres:5432", "--", "npm", "start"]
     ports:
       - "3000:3000"
@@ -15,6 +16,10 @@ services:
       DB_USER: user
       DB_PASSWORD: pass
       REDIS_HOST: redis
+      REDIS_DB: "0"
+      MAIL_PORT: "1025"
+      MAIL_HOST: mailhog
+      MAIL_SECURE: "false"
 
   redis:
     image: redis:6.0-alpine
@@ -29,6 +34,11 @@ services:
       POSTGRES_DB: kutt
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
+  mailhog:
+    image: mailhog/mailhog:v1.0.1
+    ports:
+      - 8025:8025
 
 volumes:
   redis_data:
