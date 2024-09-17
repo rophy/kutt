@@ -30,6 +30,10 @@
     "url": "https://github.com/TheDevs-Network/kutt/issues"
   },
   "homepage": "https://github.com/TheDevs-Network/kutt#readme",
+  "engines" : { 
+    "npm" : ">=8.0.0 <9.0.0",
+    "node" : ">=16.0.0 <17.0.0"
+  },
   "dependencies": {
     "app-root-path": "^3.1.0",
     "axios": "^1.1.3",
