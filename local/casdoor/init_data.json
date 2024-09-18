@@ -1,0 +1,121 @@
+{
+    "organizations": [],
+    "applications": [
+      {
+        "owner": "admin",
+        "name": "my-oidc",
+        "displayName": "my-oidc",
+        "logo": "",
+        "homepageUrl": "",
+        "organization": "built-in",
+        "cert": "cert-built-in",
+        "enablePassword": true,
+        "enableSignUp": false,
+        "clientId": "81a39e63a2eff8ca76a1",
+        "clientSecret": "16f4967467fc2dfae42c7b86112f4e0db98df14c",
+        "providers": [
+          {
+            "name": "",
+            "canSignUp": true,
+            "canSignIn": true,
+            "canUnlink": false,
+            "prompted": false,
+            "alertType": "None"
+          }
+        ],
+        "signinMethods": [
+          {
+            "name": "Password",
+            "displayName": "Password",
+            "rule": "All"
+          }
+        ],
+        "signupItems": [],
+        "tokenFormat": "JWT",
+        "tokenFields": [],
+        "redirectUris": [
+          "http://localhost:3000/auth/sso/"
+        ],
+        "expireInHours": 168,
+        "failedSigninLimit": 5,
+        "failedSigninFrozenTime": 15
+      }
+    ],
+    "users": [
+      {
+        "owner": "built-in",
+        "name": "user-1",
+        "type": "normal-user",
+        "password": "aaaa123",
+        "displayName": "user-1",
+        "avatar": "https://cdn.casbin.org/img/casbin.svg",
+        "email": "192Mnggv@example.com",
+        "phone": "6262394976",
+        "countryCode": "US",
+        "address": [],
+        "affiliation": "Example Inc.",
+        "tag": "",
+        "score": 2000,
+        "ranking": 1,
+        "isAdmin": false,
+        "isForbidden": false,
+        "isDeleted": false,
+        "signupApplication": "",
+        "createdIp": ""
+      },
+      {
+        "owner": "built-in",
+        "name": "user-2",
+        "type": "normal-user",
+        "password": "aaaa123",
+        "displayName": "user-2",
+        "avatar": "https://cdn.casbin.org/img/casbin.svg",
+        "email": "b1ncGUVh@example.com",
+        "phone": "3462524353",
+        "countryCode": "US",
+        "address": [],
+        "affiliation": "Example Inc.",
+        "tag": "",
+        "score": 2000,
+        "ranking": 1,
+        "isAdmin": false,
+        "isForbidden": false,
+        "isDeleted": false,
+        "signupApplication": "",
+        "createdIp": ""
+      },
+      {
+        "owner": "built-in",
+        "name": "user-3",
+        "type": "normal-user",
+        "password": "aaaa123",
+        "displayName": "user-3",
+        "avatar": "https://cdn.casbin.org/img/casbin.svg",
+        "email": "2XHb1WgF@example.com",
+        "phone": "9149760382",
+        "countryCode": "US",
+        "address": [],
+        "affiliation": "Example Inc.",
+        "tag": "",
+        "score": 2000,
+        "ranking": 1,
+        "isAdmin": false,
+        "isForbidden": false,
+        "isDeleted": false,
+        "signupApplication": "",
+        "createdIp": ""
+      }
+    ],
+    "providers": [],
+    "certs": [],
+    "ldaps": [],
+    "models": [],
+    "permissions": [],
+    "payments": [],
+    "products": [],
+    "resources": [],
+    "roles": [],
+    "syncers": [],
+    "tokens": [],
+    "webhooks": []
+  }

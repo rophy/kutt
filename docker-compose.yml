@@ -52,6 +52,7 @@ services:
 
   casdoor:
     image: casbin/casdoor:v1.702.0
+    restart: on-failure
     ports:
       - 8000:8000
     volumes:
