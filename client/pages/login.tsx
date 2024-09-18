@@ -16,11 +16,7 @@ import { Button } from "../components/Button";
 import Text, { H2 } from "../components/Text";
 import ALink from "../components/ALink";
 import Icon from "../components/Icon";
-<<<<<<< HEAD
-=======
-import { APIv2 } from "../consts";
 import Divider from "../components/Divider";
->>>>>>> c76d3f9 (feat: add unikname oidc login method)
 
 const LoginForm = styled(Flex).attrs({
   as: "form",
@@ -202,42 +198,12 @@ const LoginPage = () => {
                   />
                   Sign up
                 </Button>
-<<<<<<< HEAD
-              )}
-            </Flex>
-            <ALink
-              href="/reset-password"
-              title="Forget password"
-              fontSize={14}
-              alignSelf="flex-start"
-              my={16}
-              isNextLink
-            >
-              Forgot your password?
-            </ALink>
-            <Text color="red" mt={1} normal>
-              {error}
-            </Text>
-          </LoginForm>
-=======
               </Flex>
-              <Link href="/reset-password">
-                <ALink
-                  href="/reset-password"
-                  title="Forget password"
-                  fontSize={14}
-                  alignSelf="flex-start"
-                  my={16}
-                >
-                  Forgot your password?
-                </ALink>
-              </Link>
               <Text color="red" mt={1} normal>
                 {error}
               </Text>
             </LoginForm>
           </Flex>
->>>>>>> c76d3f9 (feat: add unikname oidc login method)
         )}
       </ColCenterV>
     </AppWrapper>

@@ -5,8 +5,12 @@ import env from "./env";
 
 import { Issuer, Strategy, UserinfoResponse } from "openid-client";
 
+
+console.log('lalala', env.OIDC_CONNEXION_ENABLED);
+
 if (env.OIDC_CONNEXION_ENABLED) {
   (async function addOIDCStrategy() {
+    console.log('adding oidc passport strategy');
     const unAuthIssuer = await Issuer.discover(env.OIDC_DISCOVERY_URL);
 
     const uncClient = new unAuthIssuer.Client({
@@ -63,5 +67,14 @@ if (env.OIDC_CONNEXION_ENABLED) {
         }
       )
     );
-  })();
+
+    
+  })()
+  .then(() => {
+    console.log('added oidc passport strategy');
+  })
+  .catch((err) => {
+    console.error(err);
+
+  });
 }
