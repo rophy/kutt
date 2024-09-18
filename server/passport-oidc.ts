@@ -4,6 +4,7 @@ import query from "./queries";
 import env from "./env";
 
 import { Issuer, Strategy, UserinfoResponse } from "openid-client";
+import { logger } from "./config/winston";
 
 
 console.log('lalala', env.OIDC_CONNEXION_ENABLED);
@@ -33,8 +34,11 @@ if (env.OIDC_CONNEXION_ENABLED) {
         },
         async (req, tokenset, userinfo: UserinfoResponse, done) => {
           try {
+            logger.info(`sub: ${userinfo.sub}`);
             const user = await query.user.find({ sub: userinfo.sub });
+            logger.info(`user: ${JSON.stringify(user)}`);
             if (!user) {
+              logger.info(`new user - sub: ${userinfo.sub} does not exist`);
               // It's a signup
               if (userinfo.sub) {
                 // We have needed informations to create user and return it
