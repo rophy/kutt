@@ -1,6 +1,7 @@
 services:
   kutt:
-    image: kutt/kutt
+    image: kutt
+    build: .
     depends_on:
       - postgres
       - redis
