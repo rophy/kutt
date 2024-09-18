@@ -30,11 +30,15 @@ services:
       - 6379:6379
 
   postgres:
-    image: postgres:12-alpine
+    image: bitnami/postgresql:16.4.0-debian-12-r9
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: pass
-      POSTGRES_DB: kutt
+      # 2 users will be available:
+      # 1. postgres / pass
+      # 2. user / pass
+      POSTGRESQL_POSTGRES_PASSWORD: pass
+      POSTGRESQL_USERNAME: user
+      POSTGRESQL_PASSWORD: pass
+      POSTGRESQL_DATABASE: kutt
     ports:
       - 5432:5432
     volumes:
@@ -45,6 +49,13 @@ services:
     ports:
       - 1025:1025
       - 8025:8025
+
+  casdoor:
+    image: casbin/casdoor:v1.702.0
+    ports:
+      - 8000:8000
+    volumes:
+      - ./local/casdoor:/conf:ro
 
 volumes:
   redis_data:
