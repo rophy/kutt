@@ -46,6 +46,7 @@ const env = cleanEnv(process.env, {
   OIDC_DISCOVERY_URL: str(),
   OIDC_CLIENT_ID: str(),
   OIDC_CLIENT_SECRET: str(),
+  OIDC_SCOPE: str({ default: "openid" }),
   NEXT_PUBLIC_OIDC_BUTTON_LABEL: str(),
   NEXT_PUBLIC_OIDC_BUTTON_LOGO_URL: str()
 });
