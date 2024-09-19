@@ -72,6 +72,14 @@ app.prepare().then(async () => {
     (req, res) => app.render(req, res, "/verify", { token: req.token })
   );
 
+  server.get("/login/oidc", asyncHandler(auth.oidc));
+
+  server.get(
+      "/login/oidc/cb",
+      asyncHandler(auth.oidcCallback),
+      asyncHandler(auth.oidcFinalize(app))
+  );  
+
   server.get("/:id", asyncHandler(links.redirect(app)));
 
   // Error handler

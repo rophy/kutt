@@ -119,7 +119,7 @@ const LoginPage = () => {
         ) : (
           <Flex flexDirection="column" justifyContent="center">
             <OidcLogin>        
-              <ALink href={APIv2.AuthLoginOidc} title="login/signup oidc" forButton>
+              <ALink href="/login/oidc" title="login/signup oidc" forButton>
                 <Button
                   flex="1 1 auto"
                   mb={4}

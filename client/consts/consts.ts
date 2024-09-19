@@ -10,7 +10,6 @@ export const DISALLOW_REGISTRATION =
 
 export enum APIv2 {
   AuthLogin = "/api/v2/auth/login",
-  AuthLoginOidc = "/api/v2/auth/login/oidc",
   AuthSignup = "/api/v2/auth/signup",
   AuthRenew = "/api/v2/auth/renew",
   AuthResetPassword = "/api/v2/auth/reset-password",

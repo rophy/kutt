@@ -3,6 +3,7 @@ import { Handler } from "express";
 import passport from "passport";
 import bcrypt from "bcryptjs";
 import nanoid from "nanoid";
+import next from "next";
 import { v4 as uuid } from "uuid";
 import axios from "axios";
 
@@ -61,6 +62,10 @@ export const apikey = authenticate(
 );
 export const oidc = authenticate("oidc", "Unauthorized.", false);
 export const oidcCallback = authenticate("oidc", "Unauthorized.", true);
+export const oidcFinalize = (app: ReturnType<typeof next>): Handler => async (req, res) => {
+  const token = utils.signToken(req.user);
+  app.render(req, res, "/finish-oidc-login", { token });
+}
 
 export const cooldown: Handler = async (req, res, next) => {
   if (env.DISALLOW_ANONYMOUS_LINKS) return next();
