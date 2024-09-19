@@ -1,10 +1,12 @@
 import { Handler, ErrorRequestHandler } from "express";
 import { validationResult } from "express-validator";
 import signale from "signale";
+import pino from "pino"
 
 import { CustomError } from "../utils";
 import env from "../env";
-import { logger } from "../config/winston";
+
+const logger = pino();
 
 export const ip: Handler = (req, res, next) => {
   req.realIP =

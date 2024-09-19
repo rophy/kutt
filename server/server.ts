@@ -5,14 +5,13 @@ import cookieParser from "cookie-parser";
 import passport from "passport";
 import express from "express";
 import helmet from "helmet";
-import morgan from "morgan";
 import nextApp from "next";
 
 import * as helpers from "./handlers/helpers";
 import * as links from "./handlers/links";
 import * as auth from "./handlers/auth";
 import routes from "./routes";
-import { stream } from "./config/winston";
+import pino from "pino-http";
 
 import "./cron";
 import "./passport";
@@ -28,8 +27,8 @@ app.prepare().then(async () => {
 
   server.set("trust proxy", true);
 
-  if (env.isDev) {
-    server.use(morgan("combined", { stream }));
+  if (env.isDev) {    
+    server.use(pino());
   }
 
   server.use(helmet({ contentSecurityPolicy: false }));
