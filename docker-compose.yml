@@ -21,6 +21,8 @@ services:
       MAIL_PORT: "1025"
       MAIL_HOST: mailhog
       MAIL_SECURE: "false"
+    networks:
+    - kutt
 
   redis:
     image: redis:6.0-alpine
@@ -28,6 +30,8 @@ services:
       - redis_data:/data
     ports:
       - 6379:6379
+    networks:
+    - kutt
 
   postgres:
     image: bitnami/postgresql:16.4.0-debian-12-r9
@@ -43,12 +47,16 @@ services:
       - 5432:5432
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+    - kutt
 
   mailhog:
     image: mailhog/mailhog:v1.0.1
     ports:
       - 1025:1025
       - 8025:8025
+    networks:
+    - kutt
 
   casdoor:
     image: casbin/casdoor:v1.702.0
@@ -57,7 +65,13 @@ services:
       - 8000:8000
     volumes:
       - ./local/casdoor:/conf:ro
-
+    networks:
+      kutt:
+        aliases:
+          - casdoor-7f000001.nip.io
 volumes:
   redis_data:
   postgres_data:
+
+networks:
+  kutt:
