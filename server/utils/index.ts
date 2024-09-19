@@ -57,9 +57,19 @@ export const addProtocol = (url: string): string => {
 };
 
 export const generateShortLink = (id: string, domain?: string): string => {
-  const protocol =
-    env.CUSTOM_DOMAIN_USE_HTTPS || !domain ? "https://" : "http://";
-  return `${protocol}${domain || env.DEFAULT_DOMAIN}/${id}`;
+  if (domain) {
+    if (env.CUSTOM_DOMAIN_USE_HTTPS) {
+      return `https://${domain}/${id}`;
+    } else {
+      return `http://${domain}/${id}`;
+    }
+  } else {
+    if (env.DEFAULT_DOMAIN_USE_HTTPS) {
+      return `https://${env.DEFAULT_DOMAIN}/${id}`;
+    } else {
+      return `http://${env.DEFAULT_DOMAIN}/${id}`;
+    }
+  }
 };
 
 export const getRedisKey = {
