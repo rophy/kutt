@@ -104,9 +104,31 @@ const LoginPage = () => {
     };
   }
 
+  function signupButton() {
+    if (!DISALLOW_REGISTRATION) {
+      return (
+        <Button
+          flex="1 1 auto"
+          ml={["8px", 16]}
+          height={[44, 56]}
+          color="purple"
+          onClick={onSubmit("signup")}
+        >
+          <Icon
+            name={loading.signup ? "spinner" : "signup"}
+            stroke="white"
+            mr={2}
+          />
+          Sign up
+        </Button>
+      );  
+    }
+  }
+
   if (isAuthenticated) {
     return null;
   }
+
 
   return (
     <AppWrapper>
@@ -184,20 +206,7 @@ const LoginPage = () => {
                   />
                   Log in
                 </Button>
-                <Button
-                  flex="1 1 auto"
-                  ml={["8px", 16]}
-                  height={[44, 56]}
-                  color="purple"
-                  onClick={onSubmit("signup")}
-                >
-                  <Icon
-                    name={loading.signup ? "spinner" : "signup"}
-                    stroke="white"
-                    mr={2}
-                  />
-                  Sign up
-                </Button>
+                {signupButton()}
               </Flex>
               <Text color="red" mt={1} normal>
                 {error}
