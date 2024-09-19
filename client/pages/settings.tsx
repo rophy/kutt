@@ -12,7 +12,7 @@ import Divider from "../components/Divider";
 import { Col } from "../components/Layout";
 import Footer from "../components/Footer";
 import { useStoreState } from "../store";
-import { Flex } from "reflexbox/styled-components";
+import { Flex } from "rebass/styled-components";
 
 const SettingsPage: NextPage = () => {
   const email = useStoreState(s => s.auth.email);
