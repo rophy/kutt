@@ -33,39 +33,39 @@ if (env.OIDC_CONNEXION_ENABLED) {
         async (req, tokenset, userinfo: UserinfoResponse, done) => {
           logger.info("oidc callback: %o", userinfo);
           try {
-            const user = await query.user.find({ sub: userinfo.sub });
-            if (!user) {
-              // It's a signup
-              if (userinfo.sub) {
-                // We have needed informations to create user and return it
-                logger.info("adding user");
-                let user = await query.user.add({
-                  email: userinfo.email,
-                  password: undefined,
-                  sub: userinfo.sub
-                });
+            const existingUser = await query.user.find({ sub: userinfo.sub });
 
-                // TODO: Trusts OIDC provider for now, fix later.
-                // if (userinfo.email_verified) {
-                if (true) {
-                  logger.info("updating user as verified: %o", user);
-                  const updatedUser = await query.user.update(user, {
-                    password: null,
-                    verified: true,
-                    verification_token: null,
-                    verification_expires: null,
-                  })[0];
-                  user = updatedUser;
-                  logger.info("updated user: %o", user);
-                } else {
-                  // Something to do to verify email?
-                }
-                return done(null, user);
-              }
+            // Existing user.
+            if (existingUser) return done(null, existingUser);
+
+            // New user.
+
+            if (!userinfo.sub) {
+              logger.warn('oidc returned user info without sub');
               return done(null, false);
             }
 
-            return done(null, user);
+            if (!userinfo.email_verified) {
+              logger.warn("oidc user email_verified is not true");
+              return done(null, false);
+            }
+
+            // We have needed informations to create user and return it
+            logger.info("adding user: %o", userinfo);
+            const newUser = await query.user.add({
+              email: userinfo.email,
+              password: undefined,
+              sub: userinfo.sub
+            });
+
+            const updatedUsers = await query.user.update(newUser, {
+              verified: true,
+              verification_token: null,
+              verification_expires: null,
+            });
+            logger.info("added user: %o", updatedUsers);
+            return done(null, updatedUsers[0]);
+
           } catch (err) {
             return done(err);
           }
