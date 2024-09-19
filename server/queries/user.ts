@@ -61,7 +61,11 @@ export const update = async (match: Match<User>, update: Partial<User>) => {
   const query = knex<User>("users");
 
   Object.entries(match).forEach(([key, value]) => {
-    query.andWhere(key, ...(Array.isArray(value) ? value : [value]));
+    if (value === undefined || value === null) {
+      query.whereNull(key);
+    } else {
+      query.andWhere(key, ...(Array.isArray(value) ? value : [value]));
+    }
   });
 
   const users = await query.update(
